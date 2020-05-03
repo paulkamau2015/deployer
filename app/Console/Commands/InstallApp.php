@@ -16,7 +16,15 @@ use REBELinBLUE\Deployer\Services\Filesystem\Filesystem;
 use REBELinBLUE\Deployer\Services\Token\TokenGeneratorInterface;
 use RuntimeException;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
+
+//use Symfony\Component\Process\ProcessBuilder;
+
+/**
+ * Class ProcessBuilder.
+ */
+class ProcessBuilder
+{
+} // FIXME: This is broken
 
 /**
  * A console command for prompting for install details.

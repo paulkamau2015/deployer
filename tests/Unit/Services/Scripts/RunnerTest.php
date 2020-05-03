@@ -2,8 +2,8 @@
 
 namespace REBELinBLUE\Deployer\Tests\Unit\Services\Scripts;
 
-use Illuminate\Log\Writer;
 use Mockery as m;
+use Psr\Log\LoggerInterface;
 use REBELinBLUE\Deployer\Server;
 use REBELinBLUE\Deployer\Services\Scripts\Parser;
 use REBELinBLUE\Deployer\Services\Scripts\Runner;
@@ -27,7 +27,7 @@ class RunnerTest extends TestCase
     private $parser;
 
     /**
-     * @var Writer
+     * @var LoggerInterface
      */
     private $logger;
 
@@ -40,7 +40,7 @@ class RunnerTest extends TestCase
         $this->process = m::mock(Process::class);
         $this->process->shouldReceive('stop');
 
-        $this->logger = m::mock(Writer::class);
+        $this->logger = m::mock(LoggerInterface::class);
     }
 
     public function getRunner()
