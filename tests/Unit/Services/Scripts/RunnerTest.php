@@ -194,7 +194,7 @@ class RunnerTest extends TestCase
                      ->andReturn($expected);
 
         $this->process->shouldReceive('setCommandLine')->with($expected);
-        $this->process->shouldReceive('run')->andReturnSelf();
+        $this->process->shouldReceive('run')->andReturn(0);
         $this->process->shouldReceive('isSuccessful')->andReturn(true);
         $this->process->shouldNotReceive('getErrorOutput');
 
@@ -203,7 +203,7 @@ class RunnerTest extends TestCase
         $runner = $this->getRunner();
         $actual = $runner->setScript($script, $tokens, Runner::DIRECT_INPUT)->run();
 
-        $this->assertSame($this->process, $actual);
+        $this->assertSame(0, $actual);
     }
 
     /**
@@ -226,7 +226,7 @@ class RunnerTest extends TestCase
                      ->andReturn($expected);
 
         $this->process->shouldReceive('setCommandLine')->with($expected);
-        $this->process->shouldReceive('run')->with($callback)->andReturnSelf();
+        $this->process->shouldReceive('run')->with($callback)->andReturn(0);
         $this->process->shouldReceive('isSuccessful')->once()->andReturn(true);
         $this->process->shouldNotReceive('getErrorOutput');
 
@@ -235,7 +235,7 @@ class RunnerTest extends TestCase
         $runner = $this->getRunner();
         $actual = $runner->setScript($script, $tokens, Runner::DIRECT_INPUT)->run($callback);
 
-        $this->assertSame($this->process, $actual);
+        $this->assertSame(0, $actual);
     }
 
     /**
@@ -256,7 +256,7 @@ class RunnerTest extends TestCase
                      ->andReturn($wrappedScript);
 
         $this->process->shouldReceive('setCommandLine')->with($wrappedScript);
-        $this->process->shouldReceive('run')->andReturnSelf();
+        $this->process->shouldReceive('run')->andReturn(255);
         $this->process->shouldReceive('isSuccessful')->once()->andReturn(false);
         $this->process->shouldReceive('getErrorOutput')->andReturn($expected);
 
@@ -266,7 +266,7 @@ class RunnerTest extends TestCase
         $runner = $this->getRunner();
         $actual = $runner->setScript($script, $tokens, Runner::DIRECT_INPUT)->run();
 
-        $this->assertSame($this->process, $actual);
+        $this->assertSame(255, $actual);
     }
 
     /**
@@ -308,7 +308,7 @@ class RunnerTest extends TestCase
                      ->andReturn($expected);
 
         $this->process->shouldReceive('setCommandLine')->with($expected);
-        $this->process->shouldReceive('run')->andReturnSelf();
+        $this->process->shouldReceive('run')->andReturn(0);
         $this->process->shouldReceive('isSuccessful')->once()->andReturn(true);
 
         $this->logger->shouldReceive('debug')->with($expected);
@@ -318,7 +318,7 @@ class RunnerTest extends TestCase
                          ->setScript($script, $tokens, Runner::DIRECT_INPUT)
                          ->run();
 
-        $this->assertSame($this->process, $actual);
+        $this->assertSame(0, $actual);
     }
 
     public function testRunOverSSHWithAlternativeUser()
