@@ -8,8 +8,14 @@ RUN apk add --no-cache git openssh-client bash libpng-dev $PHPIZE_DEPS \
 
 WORKDIR /application
 
-#COPY php-fpm.conf /usr/local/etc/php-fpm.d/php-fpm.conf
-#COPY www.conf /usr/local/etc/php-fpm.d/www.conf
-#COPY php-ini-overrides.ini /etc/php/7.2/fpm/conf.d/99-overrides.ini
+COPY ./docker/php/php-fpm.conf /usr/local/etc/php-fpm.d/php-fpm.conf
+COPY ./docker/php/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY ./docker/php/php-ini-overrides.ini /etc/php/7.2/fpm/conf.d/99-overrides.ini
+
+COPY . /application
+
+RUN rm -rf /application/docker \
+    && rm -rf /application/socket.js \
+    && rm -rf /application/package*.json
 
 CMD ["php-fpm", "-F", "-O"]
